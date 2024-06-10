@@ -55,5 +55,16 @@ update_student() {
         echo "Student record updated."
     else
         echo "No student records found."
+ 
+   fi
+}
+
+# Function to sort student emails and save them to a file
+sort_student_emails() {
+    if [ -f "$FILE" ]; then
+        grep -o '^[^,]*' $FILE | sort > student-emails.txt
+        echo "Student emails sorted and saved to student-emails.txt."
+    else
+        echo "No student records found."
     fi
 }
