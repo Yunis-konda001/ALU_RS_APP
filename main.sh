@@ -1,13 +1,16 @@
 #!/bin/bash
-#Menu
-printf "Welcome to the ALU registration system\n
-        Menu
- 1. Add new student
- 2. View all students
- 3. Delete student record
- 4. Update student record
- 5. Sort student email 
- 6. Exit 
- 
- Enter your choice\n"
 
+FILE="students-list_1023.txt"
+
+# Function to create a student record
+create_student() {
+    echo "Enter student email:"
+    read email
+    echo "Enter student age:"
+    read age
+    echo "Enter student ID:"
+    read id
+
+    echo "$email, $age, $id" >> $FILE
+    echo "Student record created."
+}
