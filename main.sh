@@ -68,3 +68,44 @@ sort_student_emails() {
         echo "No student records found."
     fi
 }
+
+# Main menu loop
+while true; do
+    echo "========================"
+    echo "ALU Registration System"
+    echo "========================"
+    echo "1. Create student record"
+    echo "2. View all students"
+    echo "3. Delete student record"
+    echo "4. Update student record"
+    echo "5. Sort student emails"
+    echo "6. Exit"
+    echo -n "Enter your choice: "
+    read choice
+
+    case $choice in
+        1)
+            create_student
+            ;;
+        2)
+            view_students
+            ;;
+        3)
+            delete_student
+            ;;
+        4)
+            update_student
+            ;;
+        5)
+            sort_student_emails
+            ;;
+        6)
+            echo "Exiting application."
+            break
+            ;;
+        *)
+            echo "Invalid option. Please try again."
+            ;;
+    esac
+done
+
