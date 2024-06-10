@@ -14,3 +14,12 @@ create_student() {
     echo "$email, $age, $id" >> $FILE
     echo "Student record created."
 }
+
+# Function to view all students
+view_students() {
+    if [ -f "$FILE" ]; then
+        cat $FILE
+    else
+        echo "No student records found."
+    fi
+}
