@@ -37,3 +37,23 @@ delete_student() {
         echo "No student records found."
     fi
 }
+
+# Function to update a student record by ID
+update_student() {
+    echo "Enter student ID to update:"
+    read id
+
+    if [ -f "$FILE" ]; then
+        grep -v ", $id$" $FILE > temp.txt
+        mv temp.txt $FILE
+        echo "Enter new student email:"
+        read new_email
+        echo "Enter new student age:"
+        read new_age
+
+        echo "$new_email, $new_age, $id" >> $FILE
+        echo "Student record updated."
+    else
+        echo "No student records found."
+    fi
+}
