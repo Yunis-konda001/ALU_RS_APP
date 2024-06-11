@@ -59,16 +59,6 @@ update_student() {
    fi
 }
 
-# Function to sort student emails and save them to a file
-sort_student_emails() {
-    if [ -f "$FILE" ]; then
-        grep -o '^[^,]*' $FILE | sort > student-emails.txt
-        echo "Student emails sorted and saved to student-emails.txt."
-    else
-        echo "No student records found."
-    fi
-}
-
 # Main menu loop
 while true; do
     echo "========================"
@@ -78,8 +68,7 @@ while true; do
     echo "2. View all students"
     echo "3. Delete student record"
     echo "4. Update student record"
-    echo "5. Sort student emails"
-    echo "6. Exit"
+    echo "5. Exit"
     echo -n "Enter your choice: "
     read choice
 
@@ -97,9 +86,6 @@ while true; do
             update_student
             ;;
         5)
-            sort_student_emails
-            ;;
-        6)
             echo "Exiting application."
             break
             ;;
