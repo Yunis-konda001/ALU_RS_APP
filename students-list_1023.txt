@@ -2,3 +2,4 @@ david@alu.com, 22, 123
 preye@alu.com, 27, 124
 dave@alustudent.com, 20, 126
 bella@alu.com, 18, 128
+Peter@alustudent.com, 25, 129
