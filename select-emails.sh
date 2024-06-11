@@ -1,109 +1,115 @@
 #!/bin/bash
+
 FILE="students-list_1023.txt"
 
-# Function to create a student record
-create_student() {
-    echo "Enter student email:"
-    read email
-    echo "Enter student age:"
-    read age
-    echo "Enter student ID:"
-    read id
-
-    echo "$email, $age, $id" >> $FILE
-    echo "Student record created."
+function display_menu {
+    clear
+    echo "***********************************************"
+    echo "************ Welcome to our App ***************"
+    echo "***********************************************"
+    echo
+    echo "What would you like to do today?"
+    echo
+    echo "+----------------------------------------------+"
+    echo "|                  Main Menu                   |"
+    echo "+----------------------------------------------+"
+    echo "| 1. Add New Student                           |"
+    echo "| 2. View All Students                         |"
+    echo "| 3. Update Student                            |"
+    echo "| 4. Delete Student                            |"
+    echo "| 5. Save Student Emails Sorted in ASC         |"
+    echo "| 6. View All Emails Only in ASC Order         |"
+    echo "| 7. Backup your data                          |"
+    echo "| 8. Exit                                      |"
+    echo "+----------------------------------------------+"
+    echo
+    echo -n "Enter your choice (1-8): "
 }
 
-# Function to view all students
-view_students() {
-    if [ -f "$FILE" ]; then
-        cat $FILE
-    else
-        echo "No student records found."
-    fi
-} 
-
-# Function to delete a student record by ID
-delete_student() {
-    echo "Enter student ID to delete:"
+function add_student {
+    echo -n "Enter student email: "
+    read email
+    echo -n "Enter student age: "
+    read age
+    echo -n "Enter student ID: "
     read id
+    echo "$email, $age, $id" >> $FILE
+    echo "Student record added."
+}
 
-    if [ -f "$FILE" ]; then
+function view_students {
+    if [ ! -f $FILE ]; then
+        echo "No student records found."
+    else
+        cat $FILE
+    fi
+}
+
+function update_student {
+    echo -n "Enter student ID to update: "
+    read id
+    if grep -q ", $id$" $FILE; then
+        grep -v ", $id$" $FILE > temp.txt
+        mv temp.txt $FILE
+        echo -n "Enter new student email: "
+        read email
+        echo -n "Enter new student age: "
+        read age
+        echo "$email, $age, $id" >> $FILE
+        echo "Student record updated."
+    else
+        echo "Student ID not found."
+    fi
+}
+
+function delete_student {
+    echo -n "Enter student ID to delete: "
+    read id
+    if grep -q ", $id$" $FILE; then
         grep -v ", $id$" $FILE > temp.txt
         mv temp.txt $FILE
         echo "Student record deleted."
     else
-        echo "No student records found."
+        echo "Student ID not found."
     fi
 }
 
-# Function to update a student record by ID
-update_student() {
-    echo "Enter student ID to update:"
-    read id
-
-    if [ -f "$FILE" ]; then
-        grep -v ", $id$" $FILE > temp.txt
-        mv temp.txt $FILE
-        echo "Enter new student email:"
-        read new_email
-        echo "Enter new student age:"
-        read new_age
-
-        echo "$new_email, $new_age, $id" >> $FILE
-        echo "Student record updated."
-    else
+function save_sorted_emails {
+    if [ ! -f $FILE ]; then
         echo "No student records found."
- 
-   fi
-}
-
-# Function to sort student emails and save them to a file
-sort_student_emails() {
-    if [ -f "$FILE" ]; then
-        grep -o '^[^,]*' $FILE | sort > student-emails.txt
-        echo "Student emails sorted and saved to student-emails.txt."
     else
-        echo "No student records found."
+        cut -d',' -f1 $FILE | sort > student-emails.txt
+        echo "Student emails saved to student-emails.txt."
     fi
 }
 
-# Main menu loop
+function view_sorted_emails {
+    if [ ! -f $FILE ]; then
+        echo "No student records found."
+    else
+        cut -d',' -f1 $FILE | sort
+    fi
+}
+
+function backup_data {
+    ./backup-Negpod_ID.sh
+}
+
 while true; do
-    echo "========================"
-    echo "ALU Registration System"
-    echo "========================"
-    echo "1. Create student record"
-    echo "2. View all students"
-    echo "3. Delete student record"
-    echo "4. Update student record"
-    echo "5. Sort student emails"
-    echo "6. Exit"
-    echo -n "Enter your choice: "
+    display_menu
     read choice
-
     case $choice in
-        1)
-            create_student
-            ;;
-        2)
-            view_students
-            ;;
-        3)
-            delete_student
-            ;;
-        4)
-            update_student
-            ;;
-        5)
-            sort_student_emails
-            ;;
-        6)
-            echo "Exiting application."
-            break
-            ;;
-        *)
-            echo "Invalid option. Please try again."
-            ;;
+        1) add_student ;;
+        2) view_students ;;
+        3) update_student ;;
+        4) delete_student ;;
+        5) save_sorted_emails ;;
+        6) view_sorted_emails ;;
+        7) backup_data ;;
+        8) echo "Exiting..."; exit 0 ;;
+        *) echo "Invalid choice, please try again." ;;
     esac
+    echo -n "Press Enter to continue..."
+    read
 done
+
