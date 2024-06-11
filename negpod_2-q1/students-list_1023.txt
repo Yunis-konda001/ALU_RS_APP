@@ -1,0 +1,3 @@
+david@alu.com, 22, 12
+preye@alu.com, 27, 123
+otani@alu.com, 23, 1234
