@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # Define the remote server details
-REMOTE_USER="ec1ebc754f75"
-REMOTE_HOST="ec1ebc754f75.a5efec7a.alu-cod.online"
+REMOTE_USER="46950465fae1"
+REMOTE_HOST="46950465fae1.7254ba52.alu-cod.online"
 REMOTE_DIR="/summative/0524-2024m"
 LOCAL_DIR="negpod_2-q1"
-PASSWORD="ea1d8f222b11d7be18f6"
+PASSWORD="ca1b82ada5f231d8d102"
 
 # Check if the local directory exists
 if [ ! -d "$LOCAL_DIR" ]; then
