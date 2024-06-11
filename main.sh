@@ -9,7 +9,7 @@ function display_menu {
     echo "3. Update Student"
     echo "4. Delete Student"
     echo "5. Exit"
-    echo -n "Enter your choice (1-8): "
+    echo -n "Enter your choice (1-5): "
 }
 
 function add_student {
