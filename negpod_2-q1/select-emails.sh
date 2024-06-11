@@ -4,12 +4,16 @@ FILE="students-list_1023.txt"
 
 function display_menu {
     clear
-    echo "1. Add New Student"
+    echo "=-------------------------------="
+    echo "    ALU Registration System      "
+    echo "=-------------------------------="
+    echo "1. Add New Students"
     echo "2. View All Students"
     echo "3. Update Student"
     echo "4. Delete Student"
-    echo "5. Exit"
-    echo -n "Enter your choice (1-5): "
+    echo "5. Sort Student Emails"
+    echo "6. Exit"
+    echo -n "Enter your choice: "
 }
 
 function add_student {
@@ -60,6 +64,16 @@ function delete_student {
     fi
 }
 
+function save_sorted_emails {
+    if [ ! -f $FILE ]; then
+        echo "No student records found."
+    else
+        cut -d',' -f1 $FILE | sort > student-emails.txt
+        echo "Student emails saved to student-emails.txt."
+    fi
+}
+
+
 while true; do
     display_menu
     read choice
@@ -68,7 +82,8 @@ while true; do
         2) view_students ;;
         3) update_student ;;
         4) delete_student ;;
-        5) echo "Exiting..."; exit 0 ;;
+        5) save_sorted_emails ;;
+        6) echo "Exiting..."; exit 0 ;;
         *) echo "Invalid choice, please try again." ;;
     esac
     echo -n "Press Enter to continue..."
